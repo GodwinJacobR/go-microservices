@@ -1,6 +1,7 @@
 package main
 
 import (
+	"broker/event"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -55,7 +56,7 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	case "auth":
 		app.Authenticate(w, requestPayload.Auth)
 	case "log":
-		app.LogItem(w, requestPayload.Log)
+		app.logEventviaRabbit(w, requestPayload.Log)
 	case "mail":
 		app.SendMail(w, requestPayload.Mail)
 	default:
@@ -166,6 +167,72 @@ func (app *Config) SendMail(w http.ResponseWriter, mail MailPayload) {
 	if response.StatusCode != http.StatusAccepted {
 
 		app.errorJson(w, errors.New("error calling mail service"), response.StatusCode)
+		return
+	}
+
+	var payload jsonResponse
+	payload.Error = false
+	payload.Message = "logged"
+
+	app.writeJson(w, http.StatusAccepted, payload)
+}
+
+func (app *Config) logEventviaRabbit(w http.ResponseWriter, l LogPayload) {
+	err := app.pushToQueue(l.Name, l.Data)
+	if err != nil {
+		app.errorJson(w, err)
+		return
+	}
+
+	var payload jsonResponse
+	payload.Error = false
+	payload.Message = "logged via msg"
+
+	app.writeJson(w, http.StatusAccepted, payload)
+}
+
+func (app *Config) pushToQueue(name string, msg string) error {
+	emitter, err := event.NewEventEmitter(app.Rabbit)
+	if err != nil {
+		return err
+	}
+
+	payload := LogPayload{
+		Name: name,
+		Data: msg,
+	}
+
+	j, _ := json.MarshalIndent(&payload, "", "")
+	err = emitter.Push(string(j), "log.INFO")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (app *Config) QueueLogItem(w http.ResponseWriter, log LogPayload) {
+	jsonData, _ := json.MarshalIndent(log, "", "\t")
+
+	logServiceUrl := "http://logger-service/log"
+	request, err := http.NewRequest("POST", logServiceUrl, bytes.NewBuffer(jsonData))
+	if err != nil {
+		app.errorJson(w, err)
+		return
+	}
+
+	request.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	response, err := client.Do(request)
+	if err != nil {
+		app.errorJson(w, err)
+		return
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusAccepted {
+
+		app.errorJson(w, errors.New("error calling log service"), response.StatusCode)
 		return
 	}
 

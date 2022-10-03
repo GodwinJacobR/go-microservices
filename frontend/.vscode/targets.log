@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Sep 28 21:58:32 2022
+# Make data base, printed on Mon Oct 03 21:31:13 2022
 
 # Variables
 
@@ -37,7 +37,7 @@ GOPATH = C:\Users\godwi\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_62752_VWGAQLYDCBWMIGVC
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_19140_USTJQKPVLCWIHRDF
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -49,7 +49,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\godwi\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
+VSCODE_CODE_CACHE_PATH = C:\Users\godwi\AppData\Roaming\Code\CachedData\74b1f979648cc44d385a2286793c226e611f59e7
 # environment
 LANG = C
 # default
@@ -85,7 +85,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 62752
+VSCODE_PID = 19140
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # environment
@@ -155,8 +155,7 @@ GNUMAKEFLAGS :=
 # environment
 OS = Windows_NT
 # makefile
-.DEFAULT_GOAL 
- := 
+.DEFAULT_GOAL := 
 # default
 MAKE_VERSION := 4.3
 # environment
@@ -178,7 +177,8 @@ PROCESSOR_ARCHITECTURE = x86
 # environment
 GOMODCACHE = C:\Users\godwi\go\pkg\mod
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHos 
+tProcess
 # environment
 COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
 # environment
@@ -186,7 +186,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 TEMP = C:\Users\godwi\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\81e14015890f55c00e1d6f6fc060b354-1.70.1-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\81e14015890f55c00e1d6f6fc060b354-1.71.2-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -216,7 +216,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 
 # Directories
 
-# . (key d:/repos/Golang/go-microservices/frontend, mtime 1664395112): 6 files, no impossibilities.
+# . (key d:/repos/Golang/go-microservices/frontend, mtime 1664396481): 6 files, no impossibilities.
 
 # 6 files, no impossibilities in 1 directories.
 
@@ -281,6 +281,6 @@ GNUmakefile:
 # strcache performance: lookups = 16 / hit rate = 18%
 # hash-table stats:
 # Load=13/8192=0%, Rehash=0, Collisions=0/16=0%
-# Finished Make data base on Wed Sep 28 21:58:32 2022
+# Finished Make data base on Mon Oct 03 21:31:13 2022
 
  
